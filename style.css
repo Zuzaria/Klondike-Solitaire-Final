@@ -1,0 +1,240 @@
+/*Reset and Base Styles */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family:'Courier New', Courier, monospace;
+  background: linear-gradient(125deg, #8832ba 0%, #b52438 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+.game-container{
+  max-width:1200px;
+  margin:0 auto;
+  padding: 20px;
+}
+
+/*Header Styles */
+.game-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15 px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15pc;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-header h1{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.game-stats{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.game-stats span{
+  font-weight: 600;
+}
+
+#new-game {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#new-game:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+/* Game Board*/
+.game-board {
+    display: grid;
+    grid-template-areas: 
+        "foundation foundation foundation foundation stock waste . ."
+        "tableau tableau tableau tableau tableau tableau tableau";
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 15px;
+    min-height: 600px;
+}
+
+.foundation {
+    grid-area: foundation;
+    display: flex;
+    gap: 15px;
+}
+
+.stock-waste {
+    grid-area: stock;
+    display: flex;
+    gap: 15px;
+    justify-self: end;
+}
+
+.tableau {
+    grid-area: tableau;
+    display: flex;
+    gap: 15px;
+}
+
+/* Card and Pile Styles */
+.pile, .foundation-pile, .tableau-column {
+    width: 100px;
+    min-height: 140px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.pile:hover, .foundation-pile:hover, .tableau-column:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.card {
+    width: 100px;
+    height: 140px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #333;
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+}
+
+.card.dragging {
+    transform: rotate(5deg);
+    z-index: 1000;
+    opacity: 0.8;
+}
+
+.card.face-down {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.card.face-down::after {
+    content: "🃏";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+}
+
+.card.red {
+    color: #d63031;
+}
+
+.card.black {
+    color: #2d3436;
+}
+
+.card-rank {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.card-suit {
+    font-size: 20px;
+}
+
+/* Tableau specific styles */
+.tableau-column {
+    min-height: 200px;
+}
+
+.tableau-column .card {
+    position: relative;
+    margin-bottom: -120px; /* Overlap cards */
+}
+
+.tableau-column .card:last-child {
+    margin-bottom: 0;
+}
+
+/* Drop zones */
+.drop-zone {
+    background: rgba(76, 175, 80, 0.3) !important;
+    border-color: #4caf50 !important;
+}
+
+/* Animations */
+@keyframes dealCard {
+    from {
+        transform: translateX(-200px) rotate(-90deg);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.card.dealing {
+    animation: dealCard 0.5s ease-out;
+}
+
+@keyframes flipCard {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(0deg); }
+}
+
+.card.flipping {
+    animation: flipCard 0.6s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-board {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-areas: 
+            "foundation foundation stock waste"
+            "tableau tableau tableau tableau";
+    }
+    
+    .foundation {
+        flex-wrap: wrap;
+    }
+    
+    .tableau {
+        flex-wrap: wrap;
+    }
+    
+    .card, .pile, .foundation-pile, .tableau-column {
+        width: 80px;
+        min-height: 112px;
+    }
+    
+    .card {
+        height: 112px;
+    }
+}

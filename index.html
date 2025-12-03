@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Klondike Solitaire</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+  </head>
+
+  <body>
+    <div class = "game-container">
+      <header class = "game-header">
+        <h1> Solitaire</h1>
+        <div class = "game-stats">
+          <span>Moves: <span id ="moves>0</span></span>
+          <button id ="new-game">New Game</span>/button>
+        </div>
+      </header>
+
+      <main class = "game-board">
+        <!-- Foundation (Ace to King)-->
+        <section class ="foundation">
+          <div class = "foundation-pile" data-suit="hearts"></div>
+          <div class = "foundation-pile" data-suit="diamonds"></div>
+          <div class = "foundation-pile" data-suit="clubs"></div>
+          <div class = "foundation-pile" data-suit="spades"></div>
+        </section>
+
+        <!-- Stock and Waste-->
+        <section class ="stock-waste">
+          <div id = "stock-pile" class="pile"></div>
+          <div id = "waste-pile" class="pile"></div>
+        </section>
+        
+        <!-- Tableau (7 columns)-->
+      <section class = "tableau">
+        <section class = "tableau-column" data-column="0"></div>
+        <section class = "tableau-column" data-column="1"></div>
+        <section class = "tableau-column" data-column="2"></div>
+        <section class = "tableau-column" data-column="3"></div>
+        <section class = "tableau-column" data-column="4"></div>
+        <section class = "tableau-column" data-column="5"></div>
+        <section class = "tableau-column" data-column="6"></div>
+      </section>
+      </main>
+    </div>
+
+    <script src="solitaire_game_logic.js"></script>
+  </body>
+</html>
